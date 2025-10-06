@@ -1,24 +1,30 @@
-import { notFound } from "next/navigation";
-import { lessons } from "@/lib/data";
+"use client";
+
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { Id } from "@/convex/_generated/dataModel";
+import { use } from "react";
 
 export default function LessonDetailPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: Id<"lessons"> }>;
 }) {
-  const lesson = lessons.find((l) => l.id === params.id);
+  const { id } = use(params);
 
-  if (!lesson) {
-    notFound();
+  const lesson = useQuery(api.lessons.getLesson, { id });
+  if (lesson === undefined || lesson === null) {
+    return <div>Loading...</div>;
   }
 
   return (
