@@ -1,61 +1,65 @@
-import { notFound } from "next/navigation"
-import { lessons } from "@/lib/data"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Calendar, ArrowLeft } from "lucide-react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
+import { notFound } from "next/navigation";
+import { lessons } from "@/lib/data";
+import { ArrowLeft } from "lucide-react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 export default function LessonDetailPage({
   params,
 }: {
-  params: { id: string }
+  params: { id: string };
 }) {
-  const lesson = lessons.find((l) => l.id === params.id)
+  const lesson = lessons.find((l) => l.id === params.id);
 
   if (!lesson) {
-    notFound()
+    notFound();
   }
 
   return (
-    <div className="mx-auto max-w-5xl px-6 md:px-12 lg:px-16 py-12 md:py-16">
+    <div className="mx-auto max-w-3xl px-6 md:px-12 lg:px-16 py-12 md:py-20">
       <Link href="/lessons">
-        <Button variant="ghost" className="mb-8 -ml-4 text-muted-foreground hover:text-foreground">
+        <Button
+          variant="ghost"
+          className="mb-12 -ml-4 text-sm text-muted-foreground hover:text-foreground"
+        >
           <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Lessons
+          Back
         </Button>
       </Link>
 
-      <div className="mb-12">
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-balance mb-3">{lesson.title}</h1>
-        <div className="flex items-center gap-2 text-muted-foreground">
-          <Calendar className="h-4 w-4" />
-          {new Date(lesson.date).toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          })}
-        </div>
+      <div className="mb-16">
+        <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-balance mb-2">
+          {lesson.title}
+        </h1>
+        <p className="text-sm text-muted-foreground">
+          {lesson.words.length} {lesson.words.length === 1 ? "word" : "words"}
+        </p>
       </div>
 
-      <Card className="border-border/50">
-        <CardHeader>
-          <CardTitle className="text-2xl">Vocabulary</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-3">
-            {lesson.words.map((word, index) => (
-              <div
-                key={index}
-                className="flex items-center justify-between rounded-lg border bg-card p-5 transition-colors hover:bg-muted/30"
-              >
-                <span className="text-lg font-medium text-foreground">{word.frenchword}</span>
-                <span className="text-muted-foreground">→</span>
-                <span className="text-lg font-medium text-foreground">{word.englishword}</span>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+      <div className="max-w-2xl mx-auto">
+        <Accordion type="multiple" className="w-full">
+          {lesson.words.map((word, index) => (
+            <AccordionItem
+              key={index}
+              value={`item-${index}`}
+              className="border-b border-border/30"
+            >
+              <AccordionTrigger className="text-lg font-medium hover:no-underline py-6">
+                {word.frenchword}
+              </AccordionTrigger>
+              <AccordionContent className="text-lg text-muted-foreground pb-6">
+                {word.englishword}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </div>
     </div>
-  )
+  );
 }
