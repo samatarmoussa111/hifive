@@ -23,6 +23,11 @@ export default function LessonDetailPage({
   const { id } = use(params);
 
   const lesson = useQuery(api.lessons.getLesson, { id });
+  if (!lesson) {
+    return {
+      notFound: true,
+    };
+  }
   if (lesson === undefined || lesson === null) {
     return <div>Loading...</div>;
   }
