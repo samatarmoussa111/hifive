@@ -11,4 +11,10 @@ export default defineSchema({
       })
     ),
   }),
+
+  writings: defineTable({
+    title: v.string(),
+    content: v.string(),
+    lessonId: v.id("lessons"),
+  }).index("by_lesson", ["lessonId"]),
 });
