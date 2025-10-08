@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Spinner } from "@/components/spinner";
 import { Calendar, BookOpen } from "lucide-react";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
@@ -9,7 +10,7 @@ import { api } from "@/convex/_generated/api";
 export default function LessonsPage() {
   const lessons = useQuery(api.lessons.listLessons);
   if (!lessons) {
-    return <div>Loading...</div>;
+    return <Spinner />;
   }
   return (
     <div className="mx-auto max-w-5xl px-6 md:px-12 lg:px-16 py-12 md:py-16">

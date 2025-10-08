@@ -4,13 +4,14 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BookOpen } from "lucide-react";
 import { TestModal } from "@/components/test-modal";
+import { Spinner } from "@/components/spinner";
 import { api } from "@/convex/_generated/api";
 import { useQuery } from "convex/react";
 
 export default function TestPage() {
   const lessons = useQuery(api.lessons.listLessons);
   const [selectedLessonId, setSelectedLessonId] = useState<string | null>(null);
-  if (!lessons) return <div>Loading...</div>;
+  if (!lessons) return <Spinner />;
   if (lessons.length === 0)
     return (
       <div className="mx-auto max-w-5xl px-6 md:px-12 lg:px-16 py-12 md:py-16">

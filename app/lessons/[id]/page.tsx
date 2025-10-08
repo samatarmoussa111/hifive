@@ -15,6 +15,7 @@ import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { use, useState } from "react";
 import { CreateWritingModal } from "@/components/create-writing-modal";
+import { Spinner } from "@/components/spinner";
 export default function LessonDetailPage({
   params,
 }: {
@@ -29,7 +30,7 @@ export default function LessonDetailPage({
   });
 
   if (lesson === undefined || lesson === null) {
-    return <div>Loading...</div>;
+    return <Spinner />;
   }
 
   return (
@@ -86,9 +87,7 @@ export default function LessonDetailPage({
         </div>
 
         {!lessonWritings ? (
-          <p className="text-muted-foreground text-center py-12">
-            Loading writings...
-          </p>
+          <Spinner />
         ) : lessonWritings.length === 0 ? (
           <p className="text-muted-foreground text-center py-12">
             No writings yet. Create your first writing!
