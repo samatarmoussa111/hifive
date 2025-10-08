@@ -5,9 +5,9 @@ import "./globals.css";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { ConvexClientProvider } from "@/components/convex-client-provider";
-
+import { cn } from "@/lib/utils";
 const monaSans = Mona_Sans({
-  variable: "--font-mona-sans",
+  variable: "--font-sans",
   subsets: ["latin"],
 });
 
@@ -23,8 +23,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className={monaSans.className}>
-      <body className="flex min-h-screen flex-col font-sans antialiased">
+    <html lang="fr">
+      <body
+        className={cn(
+          monaSans.className,
+          "flex min-h-screen flex-col font-sans antialiased"
+        )}
+      >
         <ConvexClientProvider>
           <Header />
           <main className="flex-1">{children}</main>
