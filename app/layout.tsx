@@ -1,25 +1,20 @@
 import type React from "react";
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Mona_Sans } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { ConvexClientProvider } from "@/components/convex-client-provider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const monaSans = Mona_Sans({
+  variable: "--font-mona-sans",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "MindMemoEnglish - Learn French to English Vocabulary",
+  title: "HiFive - Mémorisez l’anglais par le contexte",
   description:
-    "Practice French to English vocabulary with interactive lessons and tests",
+    "HiFive aide les francophones à apprendre et mémoriser le vocabulaire anglais à travers des leçons contextuelles et interactives.",
 };
 
 export default function RootLayout({
@@ -28,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="fr" className={monaSans.className}>
       <body className="flex min-h-screen flex-col font-sans antialiased">
         <ConvexClientProvider>
           <Header />
