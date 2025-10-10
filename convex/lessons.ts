@@ -1,8 +1,7 @@
-// convex/lessons.ts
 import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 
-// Ajouter une leçon
+// ➕ Créer une nouvelle leçon
 export const createLesson = mutation({
   args: {
     title: v.string(),
@@ -10,6 +9,12 @@ export const createLesson = mutation({
       v.object({
         frenchword: v.string(),
         englishword: v.string(),
+        examples: v.array(
+          v.object({
+            french: v.string(),
+            english: v.string(),
+          })
+        ),
       })
     ),
   },
@@ -18,17 +23,22 @@ export const createLesson = mutation({
   },
 });
 
-// updater une leçon
+// 🔄 Mettre à jour une leçon
 export const updateLesson = mutation({
   args: {
     id: v.id("lessons"),
     title: v.optional(v.string()),
-    date: v.optional(v.string()),
     words: v.optional(
       v.array(
         v.object({
           frenchword: v.string(),
           englishword: v.string(),
+          examples: v.array(
+            v.object({
+              french: v.string(),
+              english: v.string(),
+            })
+          ),
         })
       )
     ),
@@ -39,7 +49,7 @@ export const updateLesson = mutation({
   },
 });
 
-// supprimer une leçon
+// ❌ Supprimer une leçon
 export const deleteLesson = mutation({
   args: { id: v.id("lessons") },
   handler: async (ctx, { id }) => {
@@ -47,7 +57,7 @@ export const deleteLesson = mutation({
   },
 });
 
-// lister toutes les leçons
+// 📚 Lister toutes les leçons
 export const listLessons = query({
   args: {},
   handler: async (ctx) => {
@@ -55,7 +65,7 @@ export const listLessons = query({
   },
 });
 
-// obtenir une leçon par ID
+// 🔍 Obtenir une leçon par ID
 export const getLesson = query({
   args: { id: v.id("lessons") },
   handler: async (ctx, { id }) => {

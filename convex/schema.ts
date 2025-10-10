@@ -8,6 +8,12 @@ export default defineSchema({
       v.object({
         frenchword: v.string(),
         englishword: v.string(),
+        examples: v.array(
+          v.object({
+            french: v.string(),
+            english: v.string(),
+          })
+        ),
       })
     ),
   }),

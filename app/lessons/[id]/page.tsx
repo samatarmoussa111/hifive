@@ -65,14 +65,36 @@ export default function LessonDetailPage({
               <AccordionTrigger className="text-lg font-medium hover:no-underline py-6">
                 {word.frenchword}
               </AccordionTrigger>
-              <AccordionContent className="text-lg text-muted-foreground pb-6">
-                {word.englishword}
+              <AccordionContent className="pb-8 space-y-6">
+                <div className="text-xl font-bold tracking-tight">
+                  {word.englishword}
+                </div>
+
+                <div className="space-y-4">
+                  {word.examples.map((example, exampleIndex) => (
+                    <div
+                      key={exampleIndex}
+                      className="space-y-1.5 pl-4 border-l-2 border-border/50"
+                    >
+                      <p className="text-base font-medium text-foreground leading-relaxed">
+                        {example.english}
+                      </p>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {example.french}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>
       </div>
 
+      {/**
+       *
+       * writings section
+       */}
       <div className="max-w-2xl mx-auto mt-24">
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-2xl font-bold tracking-tight">My Writings</h2>
