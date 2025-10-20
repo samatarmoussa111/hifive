@@ -126,7 +126,10 @@ export default function LessonDetailPage({
                   {writing.title}
                 </AccordionTrigger>
                 <AccordionContent className="text-base text-muted-foreground pb-6 leading-relaxed">
-                  {writing.content}
+                  <div
+                    className="prose max-w-none"
+                    dangerouslySetInnerHTML={{ __html: writing.content }}
+                  />
                 </AccordionContent>
               </AccordionItem>
             ))}

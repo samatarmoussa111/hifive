@@ -24,6 +24,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Id } from "@/convex/_generated/dataModel";
+import MarkdownEditor from "./markdown-editor";
 
 // ✅ Validation schema avec Zod
 const writingSchema = z.object({
@@ -103,11 +104,9 @@ export function CreateWritingModal({
                 <FormItem>
                   <FormLabel>Content</FormLabel>
                   <FormControl>
-                    <Textarea
-                      placeholder="Write your text here..."
-                      rows={10}
-                      className="resize-none"
-                      {...field}
+                    <MarkdownEditor
+                      value={field.value}
+                      onChange={field.onChange}
                     />
                   </FormControl>
                   <FormMessage />
